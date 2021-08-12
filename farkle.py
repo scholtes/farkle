@@ -281,7 +281,7 @@ def test_cases_for_return_all_choices():
 ##################################################################################################
 ##################################################################################################
 
-# Uncomment any of the lines below to play with a thing
+# Comment or uncomment any of the lines below to play with a thing
 if __name__ == '__main__':
-    # do_all_farkle_counts()
+    do_all_farkle_counts()
     test_cases_for_return_all_choices()
