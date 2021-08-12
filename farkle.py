@@ -257,7 +257,11 @@ Manually check that return_all_choices behaves like it should
 '''
 def test_cases_for_return_all_choices():
     test_cases = [
-        [5,2,2,2,1,4]
+        [5,2,2,2,1,4],
+        [1,1,1,1,1,1],
+        [1,1,1,3,3,3],
+        [1,2,3,4,5,6],
+        [4]
     ]
     for dice in test_cases:
         print("="*32)
