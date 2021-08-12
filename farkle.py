@@ -1,5 +1,5 @@
 '''
-Naming conventions and asumptionsin this file:
+Naming conventions and asumptions in this file:
  * `dice` is a list of ints of throw results in a hand. For example, if you throw 4 dice
    and rolled a 1, 3, 1, and 5, `dice` would be `[1,3,1,5]` (never assumed to be sorted)
  * Valid dice values are only 1 thru 6 (six sided)
@@ -13,8 +13,8 @@ Naming conventions and asumptionsin this file:
     * 1 thru 6 is worth 1500
 '''
 
-
 ##################################################################################################
+############# Some helper functions related to showing choices available for a throw #############
 
 '''
 Returns all numbers that have a 3 of a kind in the hand.
@@ -140,7 +140,13 @@ def _max_score_only(rac_result):
             pruned_result.append(max(choices, key=lambda x: x["score"]))
     return pruned_result
 
+
+
+
+
+
 ##################################################################################################
+############### Various assorted dice operations used for stats and for game state ###############
 
 '''
 Example inputs and outputs:
