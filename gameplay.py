@@ -163,6 +163,41 @@ def analyze_n_single_player_games(n, policy, printStats=True, verboseStats=True,
     if printStats: print(f"Score per turn: {mean_score_per_turn:.4f} (\u00b1{stdv_score_per_turn:.4f})")
     return result
 
+'''
+Count how many games each policy wins. Presumably this could be deduced from the histograms in `analyze_n_single_player_games`
+(or by using median or mode instead of mean... maybe???) but this is a brute force game by game comparison.
+    `n` - play n games for each policy
+    `policy1` - the first policy
+    `policy2` - the second policy
+    `verboseProgress` - print a period (".") every time 10,000 pairs of games have completed (note, 10,000, not 1,000)
+'''
+def compare_policies(n, policy1, policy2, verboseProgress=True):
+    policy1wins = 0
+    policy2wins = 0
+    print(f"Running {n} games for each of two policies:")
+    progress = 0
+    for i in range(n):
+        if progress % 10000 == 0:
+            if verboseProgress: print(".",end="",flush=True) # Print status marker every 1000 games
+        result1 = play_single_player_game(policy1)
+        result2 = play_single_player_game(policy2)
+        if result1["turns"] == result2["turns"]:
+            if result1["total_score"] > result2["total_score"]:
+                policy1wins += 1
+            elif result1["total_score"] < result2["total_score"]:
+                policy2wins += 1
+            # Else they tie
+        elif result1["turns"] < result2["turns"]:
+            policy1wins += 1
+        else:
+            policy2wins += 1
+        progress += 1
+    if verboseProgress: print()
+    print(f"Policy 1 wins: {100*policy1wins/n:.4f} % of games ({policy1wins}/{n})")
+    print(f"Policy 2 wins: {100*policy2wins/n:.4f} % of games ({policy2wins}/{n})")
+    tie_total = n-policy1wins-policy2wins
+    tie_percent = tie_total/n
+    print(f"Policies tie:  {  100*tie_percent:.4f} % of games ({tie_total}/{n})")
 
 
 if __name__ == "__main__":
