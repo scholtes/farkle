@@ -54,4 +54,5 @@ if __name__ == "__main__":
     print("=========================================")
     print("")
 
+    # 3 wins by 1%
     compare_policies(1000000, always_roll_with_n_remaining_dice(3), always_roll_with_n_remaining_dice(4))

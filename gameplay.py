@@ -202,3 +202,4 @@ def compare_policies(n, policy1, policy2, verboseProgress=True):
 
 if __name__ == "__main__":
     print(is_farkle([2,3]))
+    print(return_all_choices([1,2,2,2,4,5]))
