@@ -66,7 +66,11 @@ Call the `play_single_player_game` function from `gameplay.py`. Set `verbose=Tru
 play_single_player_game(my_awesome_policy_function, verbose=True)
 ```
 
-**TODO** statistical analysis with multiple games played
+Call the `analyze_n_single_player_games` function to run multiple games and generate statistics. For example, to run 10,000 trials:
+
+```python
+analyze_n_single_player_games(n=10000, policy=always_roll_once)
+```
 
 # Run an example!
 
@@ -76,4 +80,4 @@ Run
 python policy_naive.py
 ```
 
-to see the output from a game using a basic policy, and (**TODO:**) some statistics about how this policy performs.
+to see the output from a game using a basic policy, and some statistics about how this policy performs.
