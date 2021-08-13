@@ -97,7 +97,35 @@ def play_single_player_game(policy, verbose=False):
 
 
 '''
-hi
+Runs multiple games and gives statistics.
+    `n` - number of games to play
+    `policy` - the policy function (see `play_single_player_game` for explanation and `policy_naive.py` for an example)
+    `printStats` - print statistic results (mean and standard deviations for turns per game and score per turn for the policy)
+    `verboseStats` - print more verbose statistics (contains histograms)
+    `verboseProgress` - prints a period (".") every time 1,000 games have completed being simulated.
+    `verboseGames` - prints the verbose output of every game simulated (warning: VERY verbose for large n)
+On my machine, n=10,000 games takes about 5 seconds to complete for the demo naive policy.
+
+The return value of this function is what `verboseStats` prints out, which looks something like this example:
+
+```
+{
+    "games": [
+        {"turns": 15, "games": 1040}, # I.e. 1,040 of the total simulated games took 15 turns to complete
+        ...
+    ],
+    "turns": [
+        {"score": 750, "turns": 1605}, # I.e. 1,605 of the total simulated turns ended with a score of 750
+        ...
+    ],
+    "totalTurns": 159373,
+    "totalGames": 10000,
+    "meanTurnsPerGame":  15.9373,
+    "stdvTurnsPerGame":   3.7843,
+    "meanScorePerTurn": 331.3830,
+    "stdvScorePerTurn": 322.6619
+}
+```
 '''
 def analyze_n_single_player_games(n, policy, printStats=True, verboseStats=True, verboseProgress=True, verboseGames=False):
     turns_hist = defaultdict(int)
