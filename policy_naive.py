@@ -21,4 +21,4 @@ if __name__ == "__main__":
     print("Playing 10,000 games...")
     print("<<<<<<<<<<<<<<<<<<<<<<<<")
 
-    # TODO...
+    analyze_n_single_player_games(n=10000, policy=always_roll_once)

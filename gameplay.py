@@ -1,3 +1,4 @@
+from collections import defaultdict
 from random import randint
 from farkle import *
 
@@ -92,6 +93,47 @@ def play_single_player_game(policy, verbose=False):
         "turns": turn_count
     }
     if verbose: print(result)
+    return result
+
+
+'''
+hi
+'''
+def analyze_n_single_player_games(n, policy, printStats=True, verboseStats=True, verboseProgress=True, verboseGames=False):
+    turns_hist = defaultdict(int)
+    games_hist = defaultdict(int)
+    progress = 0
+    for i in range(n):
+        if progress % 1000 == 0:
+            if verboseProgress: print(".",end="",flush=True) # Print status marker every 1000 games
+        trial = play_single_player_game(policy, verboseGames)
+        games_hist[trial["turns"]] += 1
+        for score in trial["scores"]:
+            turns_hist[score] += 1
+        progress += 1
+    if verboseProgress: print()
+    turns_per_game = sorted([{"turns": k, "games": v} for k,v in games_hist.items()], key=lambda bucket: bucket["turns"])
+    score_per_turn = sorted([{"score": k, "turns": v} for k,v in turns_hist.items()], key=lambda bucket: bucket["score"])
+    turns_count = sum(bucket["turns"]*bucket["games"] for bucket in turns_per_game)
+    games_count = n
+    mean_turns_per_game = sum(bucket["games"]*bucket["turns"] for bucket in turns_per_game)/games_count
+    mean_score_per_turn = sum(bucket["turns"]*bucket["score"] for bucket in score_per_turn)/turns_count
+    stdv_turns_per_game = (sum(bucket["games"]*(bucket["turns"]-mean_turns_per_game)**2 for bucket in turns_per_game)/games_count)**0.5
+    stdv_score_per_turn = (sum(bucket["turns"]*(bucket["score"]-mean_score_per_turn)**2 for bucket in score_per_turn)/turns_count)**0.5
+    result = {
+        "games": turns_per_game,
+        "turns": score_per_turn,
+        "totalTurns": turns_count,
+        "totalGames": games_count,
+        "meanTurnsPerGame": mean_turns_per_game,
+        "stdvTurnsPerGame": stdv_turns_per_game,
+        "meanScorePerTurn": mean_score_per_turn,
+        "stdvScorePerTurn": stdv_score_per_turn
+    }
+    if verboseStats: print(result)
+    if printStats: print(f"Turns per game: {mean_turns_per_game:.4f} (\u00b1{stdv_turns_per_game:.4f})")
+    if printStats: print(f"Score per turn: {mean_score_per_turn:.4f} (\u00b1{stdv_score_per_turn:.4f})")
+    return result
 
 
 
